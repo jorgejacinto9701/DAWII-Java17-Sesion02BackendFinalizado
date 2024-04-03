@@ -1,5 +1,10 @@
 package com.empresa.entity;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,89 +12,43 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "modalidad")
+@Table(name =  "modalidad")
 public class Modalidad {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idModalidad;
-	
 	private String nombre;
-	private int numHombres;
 	private int numMujeres;
+	private int numHombres;
 	private int edadMaxima;
 	private int edadMinima;
-	
 	private String sede;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "idDeporte")
 	private Deporte deporte;
+	
+	private int estado;
 
-	public int getIdModalidad() {
-		return idModalidad;
-	}
-
-	public void setIdModalidad(int idModalidad) {
-		this.idModalidad = idModalidad;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public int getNumHombres() {
-		return numHombres;
-	}
-
-	public void setNumHombres(int numHombres) {
-		this.numHombres = numHombres;
-	}
-
-	public int getNumMujeres() {
-		return numMujeres;
-	}
-
-	public void setNumMujeres(int numMujeres) {
-		this.numMujeres = numMujeres;
-	}
-
-	public int getEdadMaxima() {
-		return edadMaxima;
-	}
-
-	public void setEdadMaxima(int edadMaxima) {
-		this.edadMaxima = edadMaxima;
-	}
-
-	public int getEdadMinima() {
-		return edadMinima;
-	}
-
-	public void setEdadMinima(int edadMinima) {
-		this.edadMinima = edadMinima;
-	}
-
-	public String getSede() {
-		return sede;
-	}
-
-	public void setSede(String sede) {
-		this.sede = sede;
-	}
-
-	public Deporte getDeporte() {
-		return deporte;
-	}
-
-	public void setDeporte(Deporte deporte) {
-		this.deporte = deporte;
-	}
-
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "America/Lima")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaRegistro;
+	
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "America/Lima")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaActualizacion;
+	
 }
+
+
+
+
